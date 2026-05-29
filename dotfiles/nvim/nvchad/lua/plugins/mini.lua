@@ -1,0 +1,153 @@
+return {
+  "echasnovski/mini.nvim",
+  version = "*",
+  event = "VeryLazy",
+  config = function()
+    -- textobjects nâng cao
+    require("mini.ai").setup()
+    require("mini.surround").setup()
+    require("mini.comment").setup()
+    require("mini.pairs").setup()
+    require("mini.icons").setup()
+
+    -- mini.files setup
+    -- local _, MiniFiles = pcall(require, "mini.files")
+    -- MiniFiles.setup {
+    --   windows = {
+    --     preview = true,
+    --     width_focus = 30,
+    --     width_nofocus = 15,
+    --   },
+    -- }
+    --
+    -- -- Keymap mở mini.files
+    --
+    -- -- ============================
+    -- -- Git status code bắt đầu ở đây
+    -- local nsMiniFiles = vim.api.nvim_create_namespace "mini_files_git"
+    -- local autocmd = vim.api.nvim_create_autocmd
+    -- local gitStatusCache = {}
+    -- local cacheTimeout = 2000
+    -- local uv = vim.uv or vim.loop
+    --
+    -- local function isSymlink(path)
+    --   local stat = uv.fs_lstat(path)
+    --   return stat and stat.type == "link"
+    -- end
+    --
+    -- local function mapSymbols(status, is_symlink)
+    --   local statusMap = {
+    --     [" M"] = { symbol = "•", hlGroup = "MiniDiffSignChange" },
+    --     ["M "] = { symbol = "✹", hlGroup = "MiniDiffSignChange" },
+    --     ["MM"] = { symbol = "≠", hlGroup = "MiniDiffSignChange" },
+    --     ["A "] = { symbol = "+", hlGroup = "MiniDiffSignAdd" },
+    --     ["AA"] = { symbol = "≈", hlGroup = "MiniDiffSignAdd" },
+    --     ["D "] = { symbol = "-", hlGroup = "MiniDiffSignDelete" },
+    --     ["AM"] = { symbol = "⊕", hlGroup = "MiniDiffSignChange" },
+    --     ["AD"] = { symbol = "-•", hlGroup = "MiniDiffSignChange" },
+    --     ["R "] = { symbol = "→", hlGroup = "MiniDiffSignChange" },
+    --     ["U "] = { symbol = "‖", hlGroup = "MiniDiffSignChange" },
+    --     ["UU"] = { symbol = "⇄", hlGroup = "MiniDiffSignAdd" },
+    --     ["UA"] = { symbol = "⊕", hlGroup = "MiniDiffSignAdd" },
+    --     ["??"] = { symbol = "?", hlGroup = "MiniDiffSignDelete" },
+    --     ["!!"] = { symbol = "!", hlGroup = "MiniDiffSignChange" },
+    --   }
+    --
+    --   local result = statusMap[status] or { symbol = "?", hlGroup = "NonText" }
+    --   local gitSymbol = result.symbol
+    --   local gitHlGroup = result.hlGroup
+    --   local symlinkSymbol = is_symlink and "↩" or ""
+    --   local combinedSymbol = (symlinkSymbol .. gitSymbol):gsub("^%s+", ""):gsub("%s+$", "")
+    --   local combinedHlGroup = is_symlink and "MiniDiffSignDelete" or gitHlGroup
+    --   return combinedSymbol, combinedHlGroup
+    -- end
+    --
+    -- local function fetchGitStatus(cwd, callback)
+    --   local clean_cwd = cwd:gsub("^minifiles://%d+/", "")
+    --   vim.system({ "git", "status", "--ignored", "--porcelain" }, { text = true, cwd = clean_cwd }, function(content)
+    --     if content.code == 0 then
+    --       callback(content.stdout)
+    --     end
+    --   end)
+    -- end
+    --
+    -- local function parseGitStatus(content)
+    --   local gitStatusMap = {}
+    --   for line in content:gmatch "[^\r\n]+" do
+    --     local status, filePath = string.match(line, "^(..)%s+(.*)")
+    --     if status and filePath then
+    --       gitStatusMap[filePath] = status
+    --     end
+    --   end
+    --   return gitStatusMap
+    -- end
+    --
+    -- local function updateMiniWithGit(buf_id, gitStatusMap)
+    --   vim.schedule(function()
+    --     local nlines = vim.api.nvim_buf_line_count(buf_id)
+    --     for i = 1, nlines do
+    --       local entry = MiniFiles.get_fs_entry(buf_id, i)
+    --       if entry then
+    --         local status = gitStatusMap[entry.name]
+    --         if status then
+    --           local symbol, hlGroup = mapSymbols(status, isSymlink(entry.path))
+    --           vim.api.nvim_buf_set_extmark(buf_id, nsMiniFiles, i - 1, 0, {
+    --             sign_text = symbol,
+    --             sign_hl_group = hlGroup,
+    --             priority = 2,
+    --           })
+    --         end
+    --       end
+    --     end
+    --   end)
+    -- end
+    --
+    -- local function updateGitStatus(buf_id)
+    --   local cwd = vim.fs.root(buf_id, ".git")
+    --   if not cwd then
+    --     return
+    --   end
+    --   local currentTime = os.time()
+    --   if gitStatusCache[cwd] and currentTime - gitStatusCache[cwd].time < cacheTimeout then
+    --     updateMiniWithGit(buf_id, gitStatusCache[cwd].statusMap)
+    --   else
+    --     fetchGitStatus(cwd, function(content)
+    --       local gitStatusMap = parseGitStatus(content)
+    --       gitStatusCache[cwd] = { time = currentTime, statusMap = gitStatusMap }
+    --       updateMiniWithGit(buf_id, gitStatusMap)
+    --     end)
+    --   end
+    -- end
+    --
+    -- local function clearCache()
+    --   gitStatusCache = {}
+    -- end
+    -- local function augroup(name)
+    --   return vim.api.nvim_create_augroup("MiniFiles_" .. name, { clear = true })
+    -- end
+    --
+    -- autocmd("User", {
+    --   group = augroup "start",
+    --   pattern = "MiniFilesExplorerOpen",
+    --   callback = function()
+    --     updateGitStatus(vim.api.nvim_get_current_buf())
+    --   end,
+    -- })
+    --
+    -- autocmd("User", {
+    --   group = augroup "close",
+    --   pattern = "MiniFilesExplorerClose",
+    --   callback = clearCache,
+    -- })
+    --
+    -- autocmd("User", {
+    --   group = augroup "update",
+    --   pattern = "MiniFilesBufferUpdate",
+    --   callback = function(args)
+    --     updateGitStatus(args.data.buf_id)
+    --   end,
+    -- })
+    -- -- ============================
+    -- -- Git status code kết thúc
+  end,
+}
