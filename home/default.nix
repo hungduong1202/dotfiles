@@ -6,11 +6,12 @@
   # import sub modules
   imports = [
     ./shell.nix
-    ./core.nix
+    ./packages.nix
+    ./editors.nix
     ./git.nix
     ./starship.nix
-    # ./mise.nix
-    # ./tmux.nix
+    ./tmux.nix
+    ./mise.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -28,9 +29,6 @@
     # the Home Manager release notes for a list of state version
     # changes in each release.
     stateVersion = "25.11";
-    sessionVariables = {
-      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
-    };
   };
 
   # Let Home Manager install and manage itself.

@@ -11,11 +11,6 @@ return {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 			"saghen/blink.cmp",
-			{
-				"Hoffs/omnisharp-extended-lsp.nvim",
-				lazy = true,
-				ft = { "cs", "vb" },
-			},
 		},
 		config = function()
 			---@param names string[]
@@ -158,22 +153,6 @@ return {
 						},
 					},
 				},
-				omnisharp = {
-					handlers = {
-						["textDocument/definition"] = function(...)
-							require("omnisharp_extended").definition_handler(...)
-						end,
-						["textDocument/typeDefinition"] = function(...)
-							require("omnisharp_extended").type_definition_handler(...)
-						end,
-						["textDocument/references"] = function(...)
-							require("omnisharp_extended").references_handler(...)
-						end,
-						["textDocument/implementation"] = function(...)
-							require("omnisharp_extended").implementation_handler(...)
-						end,
-					},
-				},
 			}
 
 			for name, sconfig in pairs(servers) do
@@ -227,9 +206,6 @@ return {
 				"bash-language-server",
 				"dockerls",
 				"docker-compose-language-service",
-				"omnisharp",
-				"netcoredbg",
-				"csharpier",
 				"pyright",
 				"ruff",
 				"ruff-lsp",
