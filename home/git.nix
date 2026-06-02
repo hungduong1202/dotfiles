@@ -40,6 +40,19 @@
         amend = "commit --amend -m";
       };
     };
+
+    ignores = [
+      ".DS_Store"
+      ".direnv"
+      "node_modules"
+      "result"
+    ];
+
+    extraConfig = {
+      core = {
+        editor = "nvim";
+      };
+    };
   };
 
   programs.delta = {

@@ -38,6 +38,8 @@
     la = "eza -la --icons=always";
     ".." = "cd ..";
     "-" = "cd -";
+    m = "make";
+    md = "make deploy";
   };
 
   programs.fzf = {

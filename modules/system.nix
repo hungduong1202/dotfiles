@@ -40,6 +40,8 @@
         InitialKeyRepeat = 15; # faster key repeat
         KeyRepeat = 2;
         "com.apple.swipescrolldirection" = true; # natural scrolling
+        ApplePressAndHoldEnabled = false; # allow key repeat for vim
+        NSWindowResizeTime = 0.001; # speed up window resize animations
       };
 
       CustomUserPreferences = {

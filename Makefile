@@ -45,6 +45,15 @@ switch:
 clean:
 	rm -f result
 
+## Update flake inputs
+update:
+	nix flake update
+
+## Garbage collect old nix generations and brew cleanup
+gc:
+	nix-collect-garbage -d
+	brew cleanup
+
 ## Show available commands
 help:
 	@echo "Usage: make <target>"
