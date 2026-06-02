@@ -5,7 +5,13 @@ return {
 		dependencies = {
 			{
 				"mason-org/mason.nvim",
-				opts = { PATH = "prepend" },
+				opts = {
+					PATH = "prepend",
+					registries = {
+						"github:mason-org/mason-registry",
+						"github:Crashdummyy/mason-registry",
+					},
+				},
 			},
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
