@@ -230,7 +230,6 @@ return {
 				"jq",
 				"markdown-toc",
 				-- `nil` LSP: Mason builds from source and needs `cargo` — install via Nix (`pkgs.nil`) instead.
-				"nixfmt",
 				"alejandra",
 			})
 

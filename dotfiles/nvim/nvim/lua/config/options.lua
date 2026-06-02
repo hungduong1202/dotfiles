@@ -43,16 +43,16 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
---Use Spaces instad of taps
+-- Use spaces instead of tabs
 vim.opt.expandtab = true
 -- size for spaces using << and >>
 vim.opt.shiftwidth = 4
 -- size for spaces for tab
 vim.opt.tabstop = 4
--- how many spaces when prassing tab
+-- how many spaces when pressing tab
 vim.opt.softtabstop = 4
 
--- indetation opthions
+-- indentation options
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true

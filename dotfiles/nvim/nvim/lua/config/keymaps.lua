@@ -18,7 +18,7 @@ local function close_other_buffers()
 	local current = vim.api.nvim_get_current_buf()
 
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		if buf ~= current and vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, "buflisted") then
+		if buf ~= current and vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
 			vim.api.nvim_buf_delete(buf, { force = false })
 		end
 	end
