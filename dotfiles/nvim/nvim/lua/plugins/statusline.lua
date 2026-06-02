@@ -1,13 +1,15 @@
 return {
-	"nvim-mini/mini.statusline",
+	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
-	version = false,
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
-		local ms = require("mini.statusline")
-		ms.setup({ use_icons = vim.g.have_nerd_font })
-		---@diagnostic disable-next-line: duplicate-set-field
-		ms.section_location = function()
-			return "%2l:%-2v"
-		end
+		require("lualine").setup({
+			options = {
+				theme = "auto",
+				globalstatus = true,
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+			},
+		})
 	end,
 }
