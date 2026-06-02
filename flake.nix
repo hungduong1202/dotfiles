@@ -11,8 +11,7 @@
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
     substituters = [
-      # Query the mirror of USTC first, and then the official cache.
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://mirror.sjtu.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
     ];
   };
@@ -59,11 +58,9 @@
     llm-agents,
     ...
   }: let
-    # TODO replace with your own username, email, system, and hostname
-    username = "hung.duong";
-    useremail = "hung.duong@successsoftware.global";
-    system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-    hostname = "HUNGDUONG-MAC";
+    # User/host config — edit config.nix to customize
+    userConfig = import ./config.nix;
+    inherit (userConfig) username useremail system hostname;
 
     specialArgs = {
       inherit inputs username useremail hostname;

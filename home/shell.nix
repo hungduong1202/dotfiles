@@ -1,4 +1,15 @@
-{config,pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  # Declarative PATH management (replaces manual export in initContent)
+  home.sessionPath = [
+    "$HOME/bin"
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+  ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -10,9 +21,7 @@
 
     initContent = ''
       setopt AUTO_CD
-      export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       export CARGO_TARGET_DIR=~/cargo-target
-      eval "$(zoxide init zsh)"
     '';
   };
 
@@ -21,17 +30,23 @@
     urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
 
     n = "nvim";
-    nr =  "npm run";
+    nr = "npm run";
     ws = "cd ~/workspace";
     c = "clear";
-    ll = "ls -l";
-    la = "ls -la";
+    ls = "eza --icons=always";
+    ll = "eza -l --icons=always";
+    la = "eza -la --icons=always";
     ".." = "cd ..";
     "-" = "cd -";
   };
 
-
   programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  # Replaces manual `eval "$(zoxide init zsh)"` in initContent
+  programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
   };

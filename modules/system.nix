@@ -1,22 +1,53 @@
-{ pkgs, ... }:
-
-  ###################################################################################
-  #
-  #  macOS's System configuration
-  #
-  #  All the configuration options are documented here:
-  #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-  #
-  ###################################################################################
+{pkgs, ...}:
+###################################################################################
+#
+#  macOS's System configuration
+#
+#  All the configuration options are documented here:
+#    https://daiderd.com/nix-darwin/manual/index.html#sec-options
+#
+###################################################################################
 {
   system = {
     stateVersion = 6;
 
     defaults = {
-      menuExtraClock.Show24Hour = true;  # show 24 hour clock
+      menuExtraClock.Show24Hour = true;
 
-      # other macOS's defaults configuration.
-      # ......
+      trackpad = {
+        Clicking = true;
+        TrackpadThreeFingerDrag = true;
+      };
+
+      dock = {
+        autohide = true;
+        show-recents = false;
+        mru-spaces = false; # don't rearrange spaces based on recent use
+        tilesize = 48;
+      };
+
+      finder = {
+        _FXShowPosixPathInTitle = true; # show full path in title
+        AppleShowAllExtensions = true;
+        FXEnableExtensionChangeWarning = false;
+        QuitMenuItem = true; # allow quitting Finder
+        ShowPathbar = true;
+        ShowStatusBar = true;
+      };
+
+      NSGlobalDomain = {
+        AppleShowAllExtensions = true;
+        InitialKeyRepeat = 15; # faster key repeat
+        KeyRepeat = 2;
+        "com.apple.swipescrolldirection" = true; # natural scrolling
+      };
+
+      CustomUserPreferences = {
+        "com.apple.desktopservices" = {
+          DSDontWriteNetworkStores = true; # no .DS_Store on network volumes
+          DSDontWriteUSBStores = true; # no .DS_Store on USB drives
+        };
+      };
     };
   };
 
@@ -26,5 +57,4 @@
   # Create /etc/zshrc that loads the nix-darwin environment.
   # this is required if you want to use darwin's default shell - zsh
   programs.zsh.enable = true;
-
 }

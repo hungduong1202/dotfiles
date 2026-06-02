@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   programs.mise = {
     enable = true;
     enableZshIntegration = true;
@@ -12,8 +15,8 @@
   };
 
   # activation script to set up mise configuration
-  home.activation.setupMise = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    # use the virtual environment created by uv 
+  home.activation.setupMise = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # use the virtual environment created by uv
     # ${pkgs.mise}/bin/mise settings set python.uv_venv_auto true
 
     # enable corepack (pnpm, yarn, etc.)

@@ -7,7 +7,7 @@
   #
   #  Install all apps and packages here.
   #
-  # TODO Fell free to modify this file to fit your needs.
+  # TODO Feel free to modify this file to fit your needs.
   #
   ##########################################################################
 
@@ -23,9 +23,7 @@
   #
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
-    inputs.llm-agents.packages.${pkgs.system}.gitnexus
-    neovim
-    git
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.gitnexus
     just # use Justfile to simplify nix-darwin's commands
   ];
   environment.variables.EDITOR = "nvim";
