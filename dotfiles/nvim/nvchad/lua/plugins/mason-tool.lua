@@ -34,7 +34,6 @@ return {
       -- === Python ===
       "pyright",
       "ruff",
-      "ruff-lsp",
       "black",
       "isort",
       "debugpy",

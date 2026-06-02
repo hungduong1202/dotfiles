@@ -9,14 +9,16 @@ return {
 					PATH = "prepend",
 					registries = {
 						"github:mason-org/mason-registry",
-						"github:Crashdummyy/mason-registry",
 					},
 				},
 			},
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
-			"saghen/blink.cmp",
+			{
+				"saghen/blink.cmp",
+				dependencies = { "saghen/blink.lib" },
+			},
 		},
 		config = function()
 			---@param names string[]
@@ -214,7 +216,6 @@ return {
 				"docker-compose-language-service",
 				"pyright",
 				"ruff",
-				"ruff-lsp",
 				"black",
 				"isort",
 				"debugpy",

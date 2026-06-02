@@ -60,8 +60,6 @@ in {
     pkg-config
 
     # 🧪 Languages
-    cargo
-    rustc
     python3
     # nodejs_22 # Managed by mise
     flutter
