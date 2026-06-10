@@ -6,6 +6,7 @@ return {
 
       nixfmt = {},
       prettier = {},
+      yamlfmt = {},
       xmllint = {
         command = "xmllint",
         args = { "--format", "-" },
@@ -24,6 +25,7 @@ return {
       typescript = { "prettier" },
       csharp = { "csharpier" }, -- thêm cho .NET / C#
       nix = { "nixfmt" },
+      yaml = { "yamlfmt" },
     },
     format_on_save = {
       timeout_ms = 500,

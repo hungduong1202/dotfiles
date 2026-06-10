@@ -41,7 +41,7 @@ return {
 			scss = { "prettierd", "prettier", stop_after_first = true },
 			html = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
-			yaml = { "prettierd", "prettier", stop_after_first = true },
+			yaml = { "yamlfmt", "prettierd", "prettier", stop_after_first = true },
 			python = { "isort", "black" },
 			sh = { "beautysh" },
 			prisma = { "prettierd", "prettier", stop_after_first = true },

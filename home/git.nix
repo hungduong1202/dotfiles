@@ -39,6 +39,10 @@
         dc = "diff --cached";
         amend = "commit --amend -m";
       };
+
+      core = {
+        editor = "nvim";
+      };
     };
 
     ignores = [
@@ -47,12 +51,6 @@
       "node_modules"
       "result"
     ];
-
-    extraConfig = {
-      core = {
-        editor = "nvim";
-      };
-    };
   };
 
   programs.delta = {

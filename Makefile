@@ -44,15 +44,12 @@ switch:
 ## Remove build artifacts
 clean:
 	rm -f result
+	nix-collect-garbage -d
+	brew cleanup
 
 ## Update flake inputs
 update:
 	nix flake update
-
-## Garbage collect old nix generations and brew cleanup
-gc:
-	nix-collect-garbage -d
-	brew cleanup
 
 ## Show available commands
 help:

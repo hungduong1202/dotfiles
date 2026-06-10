@@ -4,6 +4,7 @@ return {
     formatters = {
       nixfmt = {},
       prettier = {},
+      yamlfmt = {},
       xmllint = {
         command = "xmllint",
         args = { "--format", "-" },
@@ -22,6 +23,7 @@ return {
       typescript = { "prettier" },
       -- csharp = { "csharpier" }, -- thêm cho .NET / C#
       nix = { "alejandra" },
+      yaml = { "yamlfmt" },
     },
   },
 }
