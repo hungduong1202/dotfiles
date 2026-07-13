@@ -42,6 +42,16 @@ return {
 
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+					map("<leader>cA", function()
+						vim.lsp.buf.code_action({
+							context = {
+								only = {
+									"source",
+								},
+								diagnostics = {},
+							},
+						})
+					end, "[C]ode Source [A]ction", { "n", "x" })
 					map("<leader>cd", vim.lsp.buf.hover, "[C]ode [D]ocumentation", { "n", "x" })
 					map("gr", function()
 						Snacks.picker.lsp_references()

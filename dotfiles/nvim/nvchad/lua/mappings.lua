@@ -39,6 +39,19 @@ map("n", "<leader>ca", vim.lsp.buf.code_action, {
   desc = "LSP Code Action",
 })
 
+map("n", "<leader>cA", function()
+  vim.lsp.buf.code_action({
+    context = {
+      only = {
+        "source",
+      },
+      diagnostics = {},
+    },
+  })
+end, {
+  desc = "LSP Code Source Action",
+})
+
 -- del("n", "<leader>e")
 
 map("n", "<leader>e", function()

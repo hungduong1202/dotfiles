@@ -8,16 +8,17 @@
     prefix = "C-a";
     terminal = "tmux-256color";
 
+    baseIndex = 1;
+    escapeTime = 0;
+    historyLimit = 10000;
+
     # ====== PLUGINS (NIX NATIVE) ======
     plugins = with pkgs.tmuxPlugins; [
       sensible
       cpu
       battery
       vim-tmux-navigator
-      continuum
-      resurrect
 
-      # Catppuccin (custom vì nixpkgs đôi khi chưa có hoặc outdated)
       {
         plugin = pkgs.tmuxPlugins.catppuccin;
         extraConfig = ''
@@ -34,37 +35,50 @@
           set -agF status-right "#{E:@catppuccin_status_battery}"
         '';
       }
+
+      # Resurrect (phải load trước Continuum)
+      {
+        plugin = pkgs.tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-capture-pane-contents 'on'
+        '';
+      }
+
+      # Continuum (bắt buộc phải load CUỐI CÙNG, sau khi status-right đã được Catppuccin set)
+      {
+        plugin = pkgs.tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '10'
+        '';
+      }
     ];
 
     extraConfig = ''
-      # Split
-      unbind %
-      bind | split-window -h
-      unbind '"'
-      bind - split-window -v
+      # ====== FIX TRUE COLOR (Đặc biệt cho Neovim) ======
+      set-option -sa terminal-overrides ",xterm*:Tc"
+      set-option -g focus-events on
+      set-option -g renumber-windows on # Tự động đánh lại số khi có 1 window bị đóng
 
-      # Resize
+      # ====== SPLIT WINDOWS ======
+      unbind %
+      bind | split-window -h -c "#{pane_current_path}"
+      unbind '"'
+      bind - split-window -v -c "#{pane_current_path}"
+      bind c new-window -c "#{pane_current_path}"
+
+      # ====== RESIZE ======
       bind -r j resize-pane -D 5
       bind -r k resize-pane -U 5
       bind -r l resize-pane -R 5
       bind -r h resize-pane -L 5
       bind -r m resize-pane -Z
 
-      # Navigate panes (vim style)
-      bind-key C-h if-shell "[[ $(tmux display -p '#{pane_in_mode}') -eq 1 ]]" "send-keys C-h" "select-pane -L"
-      bind-key C-j if-shell "[[ $(tmux display -p '#{pane_in_mode}') -eq 1 ]]" "send-keys C-j" "select-pane -D"
-      bind-key C-k if-shell "[[ $(tmux display -p '#{pane_in_mode}') -eq 1 ]]" "send-keys C-k" "select-pane -U"
-      bind-key C-l if-shell "[[ $(tmux display -p '#{pane_in_mode}') -eq 1 ]]" "send-keys C-l" "select-pane -R"
-
-      # Copy mode
+      # ====== COPY MODE ======
       bind-key -T copy-mode-vi v send -X begin-selection
-      bind-key -T copy-mode-vi y send -X copy-selection
+      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
       unbind -T copy-mode-vi MouseDragEnd1Pane
-
-      # ====== RESURRECT / CONTINUUM ======
-      set -g @resurrect-capture-pane-contents 'on'
-      set -g @continuum-restore 'on'
-      set -g @continuum-save-interval '10'
+      bind-key -T copy-mode-vi Escape send-keys -X cancel
     '';
   };
 }

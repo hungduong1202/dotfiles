@@ -60,7 +60,7 @@ in {
     pkg-config
 
     # 🧪 Languages
-    python3
+    # python3 # Managed by mise
     # nodejs_22 # Managed by mise
     flutter
     jdk17
@@ -75,6 +75,7 @@ in {
     rsync
     fswatch
     tree
+    ffmpeg
 
     llvm_18
     ascii-image-converter

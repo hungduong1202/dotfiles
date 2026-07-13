@@ -50,6 +50,7 @@
       ".direnv"
       "node_modules"
       "result"
+      "mise.toml"
     ];
   };
 
