@@ -21,6 +21,8 @@
 
       dock = {
         autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.2;
         show-recents = false;
         mru-spaces = false; # don't rearrange spaces based on recent use
         tilesize = 48;
